@@ -1,65 +1,5 @@
 
-# SiGP
-Simulateur de thermodynamique statistique
-
-SiGP est un programme écrit en C et utilisant la librairie graphique SDL 1.2.
-
-Il permet de simuler une détente de Joule ainsi que des transferts thermique et d'en donner une représentation graphique.
-
-La touche F1 réinitialise le système, la touche F5 affiche les paramètres énergétiques.
-
-Les flêches haut, bas, droite, gauche changent la vitesse de la simulation.
-
-La touche entrée change le mode ( avec ou sans attente d'évènement ) de la simulation.
-
-CLAVIER
-
-Activation du thermostat :
-	o : système isolé.
-	i : système thermostaté symétrique
-	k : système thermostaté gauche-droite
-
-Réglage du thermostat :
-		u, j : Température de la paroi droite
-		y, h : Température de la paroi gauche
-
-Paroi :		w : supprime la cloison
-		x : cloison fermée
-		c : cloison percée
-		v : démon de Maxwell
-
-Taille du trou :
-		a, q : augmente, diminue
-		z, s : Taille max, min
-
-OPTION DE LA LIGNE DE COMMANDE
-
-
-pause :		Temps de pause en ms entre les affichages.
-
-duree :		Nombre d'évolution du système entre les affichages.
-
-
-temperature :	Température initiale.
-
-gauche :	Température thermostat gauche.
-
-droite :	Température thermostat droit.
-
-
-thermostat :	Activation du thermostat, 0 : système isolé.
-
-cloison :	Activation cloison centrale.
-
-
-aide :		Affiche l'aide.
-
-help :		Affiche l'aide.
-
-
-
-LICENCE
-
+/*
 Copyright septembre 2017, Stephan Runigo
 runigo@free.fr
 SiGP 1.3.3  simulateur de gaz parfait
@@ -89,4 +29,37 @@ sécurité de leurs systèmes et ou de leurs données et, plus généralement,
 Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
 pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
+*/
 
+#ifndef _CONSTANTES_
+#define _CONSTANTES_
+
+//#include "unistd.h"
+
+#include <assert.h>
+
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define ALEA 77 // Taille du tableau de nombre aléatoire
+
+#define NOMBRE 349 // Nombre de particules
+#define TAILLE 5 // Taille des particules
+//#define IMPACT 1 // Influence des chocs avec les parois
+
+#define PI 3.14159265359
+#define DEUXPI 6.28318530718
+
+#define LARGEUR 1090 // Largeur de la fenêtre
+#define HAUTEUR 395 // Hauteur de la fenêtre
+#define MARGE 49 // Marge fenêtre-montage
+
+#define DEMItROU 7 // Trou dans la cloison, sur 2
+
+#define DUREE_MAX 99 // Nombre d'itération du système par affichage
+#define TEMPERATURE_MAX 19666.1 // Température maximale
+#define TEMPERATURE_MIN 0.0000003 // Température minimale
+
+#endif

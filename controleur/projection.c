@@ -1,65 +1,5 @@
 
-# SiGP
-Simulateur de thermodynamique statistique
-
-SiGP est un programme écrit en C et utilisant la librairie graphique SDL 1.2.
-
-Il permet de simuler une détente de Joule ainsi que des transferts thermique et d'en donner une représentation graphique.
-
-La touche F1 réinitialise le système, la touche F5 affiche les paramètres énergétiques.
-
-Les flêches haut, bas, droite, gauche changent la vitesse de la simulation.
-
-La touche entrée change le mode ( avec ou sans attente d'évènement ) de la simulation.
-
-CLAVIER
-
-Activation du thermostat :
-	o : système isolé.
-	i : système thermostaté symétrique
-	k : système thermostaté gauche-droite
-
-Réglage du thermostat :
-		u, j : Température de la paroi droite
-		y, h : Température de la paroi gauche
-
-Paroi :		w : supprime la cloison
-		x : cloison fermée
-		c : cloison percée
-		v : démon de Maxwell
-
-Taille du trou :
-		a, q : augmente, diminue
-		z, s : Taille max, min
-
-OPTION DE LA LIGNE DE COMMANDE
-
-
-pause :		Temps de pause en ms entre les affichages.
-
-duree :		Nombre d'évolution du système entre les affichages.
-
-
-temperature :	Température initiale.
-
-gauche :	Température thermostat gauche.
-
-droite :	Température thermostat droit.
-
-
-thermostat :	Activation du thermostat, 0 : système isolé.
-
-cloison :	Activation cloison centrale.
-
-
-aide :		Affiche l'aide.
-
-help :		Affiche l'aide.
-
-
-
-LICENCE
-
+/*
 Copyright septembre 2017, Stephan Runigo
 runigo@free.fr
 SiGP 1.3.3  simulateur de gaz parfait
@@ -89,4 +29,42 @@ sécurité de leurs systèmes et ou de leurs données et, plus généralement,
 Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
 pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
+*/
 
+#include "projection.h"
+
+
+void projectionSystemeGraphe(systemeT * system, grapheT * graph)
+	{
+	int i;
+	int demiLargeur = LARGEUR/2;
+	int demiHauteur = HAUTEUR/2;
+
+	(*graph).cloison = (*system).montage.paroiCentrale;
+	grapheChangeTrou(graph, (*system).montage.trou);//(*graph).trou = (*system).montage.trou;
+
+	for(i=0;i<(NOMBRE);i++)
+		{
+				// Mémoire pour la trace
+		(*graph).ancienAbscisse[i]=(*graph).actuelAbscisse[i];
+		(*graph).ancienOrdonnee[i]=(*graph).actuelOrdonnee[i];
+		(*graph).actuelAbscisse[i]=(*graph).nouveauAbscisse[i];
+		(*graph).actuelOrdonnee[i]=(*graph).nouveauOrdonnee[i];
+
+				// Projection du système
+		(*graph).nouveauAbscisse[i] = demiLargeur + (*system).mobile[i].nouveau.x;
+
+		if((*graph).nouveauAbscisse[i]>LARGEUR || (*graph).nouveauAbscisse[i]<0)
+			{
+			(*graph).nouveauAbscisse[i] = LARGEUR/2;
+			}
+
+		(*graph).nouveauOrdonnee[i] = demiHauteur + (*system).mobile[i].nouveau.y;
+
+		if((*graph).nouveauOrdonnee[i]>HAUTEUR || (*graph).nouveauOrdonnee[i]<0)
+			{
+			(*graph).nouveauOrdonnee[i] = HAUTEUR/2;
+			}
+		}
+	return;
+	}

@@ -1,65 +1,5 @@
 
-# SiGP
-Simulateur de thermodynamique statistique
-
-SiGP est un programme écrit en C et utilisant la librairie graphique SDL 1.2.
-
-Il permet de simuler une détente de Joule ainsi que des transferts thermique et d'en donner une représentation graphique.
-
-La touche F1 réinitialise le système, la touche F5 affiche les paramètres énergétiques.
-
-Les flêches haut, bas, droite, gauche changent la vitesse de la simulation.
-
-La touche entrée change le mode ( avec ou sans attente d'évènement ) de la simulation.
-
-CLAVIER
-
-Activation du thermostat :
-	o : système isolé.
-	i : système thermostaté symétrique
-	k : système thermostaté gauche-droite
-
-Réglage du thermostat :
-		u, j : Température de la paroi droite
-		y, h : Température de la paroi gauche
-
-Paroi :		w : supprime la cloison
-		x : cloison fermée
-		c : cloison percée
-		v : démon de Maxwell
-
-Taille du trou :
-		a, q : augmente, diminue
-		z, s : Taille max, min
-
-OPTION DE LA LIGNE DE COMMANDE
-
-
-pause :		Temps de pause en ms entre les affichages.
-
-duree :		Nombre d'évolution du système entre les affichages.
-
-
-temperature :	Température initiale.
-
-gauche :	Température thermostat gauche.
-
-droite :	Température thermostat droit.
-
-
-thermostat :	Activation du thermostat, 0 : système isolé.
-
-cloison :	Activation cloison centrale.
-
-
-aide :		Affiche l'aide.
-
-help :		Affiche l'aide.
-
-
-
-LICENCE
-
+/*
 Copyright septembre 2017, Stephan Runigo
 runigo@free.fr
 SiGP 1.3.3  simulateur de gaz parfait
@@ -89,4 +29,47 @@ sécurité de leurs systèmes et ou de leurs données et, plus généralement,
 Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
 pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
+*/
 
+#ifndef _MONTAGE_
+#define _MONTAGE_
+
+#include "thermostat.h"
+
+typedef struct MontageT montageT;
+	struct MontageT
+		{
+		thermostatT thermostat;
+
+		int largeur; // largeur = (LARGEUR-MARGE)
+		int hauteur; // hauteur = (HAUTEUR-MARGE)
+
+		int demiLargeur; // Demi largeur = (LARGEUR-MARGE)/2
+		int demiHauteur; // Demi hauteur = (HAUTEUR-MARGE)/2
+
+
+		int trou ; // Taille du trou = TROU
+		//int epaisseur; // Epaisseur de la cloison
+
+		int paroiCentrale; // 0 : pas de paroi centrale, 1 : Cloison, 2 : Maxwell. 
+/*
+		int pDROITE; //2*LARGEUR Paroi droite
+		int pINFERIEUR;//2*HAUTEUR Paroi inférieur
+
+		int pTROUplus;//(HAUTEUR+TROU)/2 Paroi
+		int pTROUmoins;//(HAUTEUR-TROU)/2 Paroi
+
+		int pCENTRE;//LARGEUR/2 aroi centrale
+		int pCENTREdroit;// = LARGEUR/2 + TAILLE Paroi centrale
+		int pCENTREgauche;// = LARGEUR/2 - TAILLE Paroi centrale
+		int pCENTREdroitDouble;//Paroi centrale droit
+		int pCENTREgaucheDouble;//Paroi centrale gauche
+*/
+		};
+
+//void montageInitialise(montageT * montage);
+
+void montageChangeTrou(montageT * montage, float facteur);
+void montageChangeParoiCentrale(montageT * montage, int centrale);
+
+#endif

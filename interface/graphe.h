@@ -1,65 +1,5 @@
 
-# SiGP
-Simulateur de thermodynamique statistique
-
-SiGP est un programme écrit en C et utilisant la librairie graphique SDL 1.2.
-
-Il permet de simuler une détente de Joule ainsi que des transferts thermique et d'en donner une représentation graphique.
-
-La touche F1 réinitialise le système, la touche F5 affiche les paramètres énergétiques.
-
-Les flêches haut, bas, droite, gauche changent la vitesse de la simulation.
-
-La touche entrée change le mode ( avec ou sans attente d'évènement ) de la simulation.
-
-CLAVIER
-
-Activation du thermostat :
-	o : système isolé.
-	i : système thermostaté symétrique
-	k : système thermostaté gauche-droite
-
-Réglage du thermostat :
-		u, j : Température de la paroi droite
-		y, h : Température de la paroi gauche
-
-Paroi :		w : supprime la cloison
-		x : cloison fermée
-		c : cloison percée
-		v : démon de Maxwell
-
-Taille du trou :
-		a, q : augmente, diminue
-		z, s : Taille max, min
-
-OPTION DE LA LIGNE DE COMMANDE
-
-
-pause :		Temps de pause en ms entre les affichages.
-
-duree :		Nombre d'évolution du système entre les affichages.
-
-
-temperature :	Température initiale.
-
-gauche :	Température thermostat gauche.
-
-droite :	Température thermostat droit.
-
-
-thermostat :	Activation du thermostat, 0 : système isolé.
-
-cloison :	Activation cloison centrale.
-
-
-aide :		Affiche l'aide.
-
-help :		Affiche l'aide.
-
-
-
-LICENCE
-
+/*
 Copyright septembre 2017, Stephan Runigo
 runigo@free.fr
 SiGP 1.3.3  simulateur de gaz parfait
@@ -89,4 +29,55 @@ sécurité de leurs systèmes et ou de leurs données et, plus généralement,
 Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
 pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
+*/
 
+#ifndef _GRAPHE_
+#define _GRAPHE_
+
+//#include "point.h"
+#include "../donnees/constantes.h"
+
+typedef struct GrapheT grapheT;
+	struct GrapheT
+		{
+			// Particules
+		int ancienAbscisse[NOMBRE];
+		int actuelAbscisse[NOMBRE];
+		int nouveauAbscisse[NOMBRE];
+		int ancienOrdonnee[NOMBRE];
+		int actuelOrdonnee[NOMBRE];
+		int nouveauOrdonnee[NOMBRE];
+
+			// Montage
+		//	
+		//			a	b	c
+		//		d
+		//	
+		//		e
+		//		f
+		//
+		//		g
+
+		int ax;	
+		int bx;
+		int cx;
+		int dy;
+		int ey;
+		int fy;	
+		int gy;
+
+		int cloison;	// O, 1, 2, -1, -2
+		int thermostat;	// O, 1, 2, -1, -2
+		//int trou;	// Trou dans la cloison
+
+		int rouge;
+		int vert;
+		int bleu;
+		int fond;
+
+		};
+
+int grapheInitialise(grapheT * graphe, int rouge, int bleu, int vert, int fond);
+int grapheChangeTrou(grapheT * graphe, int trou);
+
+#endif

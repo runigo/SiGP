@@ -1,65 +1,5 @@
 
-# SiGP
-Simulateur de thermodynamique statistique
-
-SiGP est un programme écrit en C et utilisant la librairie graphique SDL 1.2.
-
-Il permet de simuler une détente de Joule ainsi que des transferts thermique et d'en donner une représentation graphique.
-
-La touche F1 réinitialise le système, la touche F5 affiche les paramètres énergétiques.
-
-Les flêches haut, bas, droite, gauche changent la vitesse de la simulation.
-
-La touche entrée change le mode ( avec ou sans attente d'évènement ) de la simulation.
-
-CLAVIER
-
-Activation du thermostat :
-	o : système isolé.
-	i : système thermostaté symétrique
-	k : système thermostaté gauche-droite
-
-Réglage du thermostat :
-		u, j : Température de la paroi droite
-		y, h : Température de la paroi gauche
-
-Paroi :		w : supprime la cloison
-		x : cloison fermée
-		c : cloison percée
-		v : démon de Maxwell
-
-Taille du trou :
-		a, q : augmente, diminue
-		z, s : Taille max, min
-
-OPTION DE LA LIGNE DE COMMANDE
-
-
-pause :		Temps de pause en ms entre les affichages.
-
-duree :		Nombre d'évolution du système entre les affichages.
-
-
-temperature :	Température initiale.
-
-gauche :	Température thermostat gauche.
-
-droite :	Température thermostat droit.
-
-
-thermostat :	Activation du thermostat, 0 : système isolé.
-
-cloison :	Activation cloison centrale.
-
-
-aide :		Affiche l'aide.
-
-help :		Affiche l'aide.
-
-
-
-LICENCE
-
+/*
 Copyright septembre 2017, Stephan Runigo
 runigo@free.fr
 SiGP 1.3.3  simulateur de gaz parfait
@@ -89,4 +29,85 @@ sécurité de leurs systèmes et ou de leurs données et, plus généralement,
 Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
 pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
+*/
 
+#include "vecteur.h"
+
+void vecteurUnitaireAleatoire(vecteurT * vect)
+	{
+	double angle;
+	angle=aleatoireRadian();
+	(*vect).x=cos(angle);
+	(*vect).y=sin(angle);
+	;
+	}
+
+void vecteurDifference(vecteurT * v1, vecteurT * v2, vecteurT * v)
+	/*
+		 v = v1 - v2
+	*/
+	{
+	(*v).x = (*v1).x - (*v2).x;
+	(*v).y = (*v1).y - (*v2).y;
+
+	return ;
+	}
+
+void vecteurSomme(vecteurT * v1, vecteurT * v2, vecteurT * v)
+	/*
+		 v = v1 + v2
+	*/
+	{
+	(*v).x = (*v1).x + (*v2).x;
+	(*v).y = (*v1).y + (*v2).y;
+
+	return ;
+	}
+
+void vecteurMultiplie(vecteurT * v, float lambda)
+	/*
+		 v = lambda * v
+	*/
+	{
+	(*v).x = lambda * (*v).x;
+	(*v).y = lambda * (*v).y;
+
+	return ;
+	}
+
+
+double vecteurScalaire(vecteurT * v1, vecteurT * v2)
+	/*
+		Renvoie le produit scalaire de v1 par v2
+	*/
+	{
+	return (((*v1).x)*((*v2).x)+((*v1).y)*((*v2).y));
+	}
+
+double vecteurVectoriel(vecteurT * v1, vecteurT * v2)
+	/*
+		Renvoie le produit vectoriel de v1 par v2
+	*/
+	{
+	return (((*v1).x)*((*v2).y)-((*v1).y)*((*v2).x));
+	}
+
+void vecteurRotation(vecteurT * initial, vecteurT * tourner, double angle)
+	/*
+		Le vecteurT "tourner" est le produit de la rotation
+		de l'angle "angle" du vecteurT "initial"
+	*/
+	{
+	double cosin, sinus;
+	cosin=cos(angle);
+	sinus=sin(angle);
+	(*tourner).x=((*initial).x)*cosin-((*initial).y)*sinus;
+	(*tourner).y=((*initial).x)*sinus+((*initial).y)*cosin;
+	}
+
+void vecteurRotationAleatoire(vecteurT * initial, vecteurT * tourner)
+	{
+	double angle;
+	angle=aleatoireRadian();
+	vecteurRotation(initial, tourner, angle);
+	}

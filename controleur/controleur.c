@@ -1,8 +1,8 @@
 
 /*
-Copyright septembre 2017, Stephan Runigo
+Copyright novembre 2017, Stephan Runigo
 runigo@free.fr
-SiGP 1.3.3  simulateur de gaz parfait
+SiGP 1.3.4  simulateur de gaz parfait
 Ce logiciel est un programme informatique servant à simuler un gaz parfait
 et à en donner une représentation graphique. Il permet d'observer une détente
 de Joule ainsi que des transferts thermiques avec des thermostats.
@@ -221,21 +221,18 @@ int controleurClavier(controleurT * control)
 			controleurChangeMode(control);break;
 
 	// Vitesse de la simulation
-
 		case SDLK_KP_PLUS:
-			controleurChangeVitesse(control, 1.7);break;
-		case SDLK_KP_MINUS:
-			controleurChangeVitesse(control, 0.6);break;
-
-		case SDLK_UP:
 			controleurChangeVitesse(control, 1.1);break;
-		case SDLK_DOWN:
-			controleurChangeVitesse(control, 0.9);break;
-		case SDLK_LEFT:
-			controleurChangeVitesse(control, 0.6);break;
-		case SDLK_RIGHT:
-			controleurChangeVitesse(control, 1.7);break;
-
+		case SDLK_KP_MINUS:
+			controleurChangeVitesse(control, 0.91);break;
+		case SDLK_F9:
+			controleurChangeVitesse(control, 0.32);break;
+		case SDLK_F10:
+			controleurChangeVitesse(control, 0.91);break;
+		case SDLK_F11:
+			controleurChangeVitesse(control, 1.1);break;
+		case SDLK_F12:
+			controleurChangeVitesse(control, 3.1);break;
 	// Taille du trou
 
 		case SDLK_a:
@@ -255,6 +252,10 @@ int controleurClavier(controleurT * control)
 			systemeChangeCloison(&(*control).systeme, 2);break;
 		case SDLK_v:	//	Démon de Maxwell
 			systemeChangeCloison(&(*control).systeme, -1);break;
+		case SDLK_b:	//	cloison percée et démon de Maxwell
+			systemeChangeCloison(&(*control).systeme, -1);break;
+		case SDLK_n:	//	cloison fermée et démon de Maxwell
+			systemeChangeCloison(&(*control).systeme, -2);break;
 
 	// Thermostat
 
@@ -288,22 +289,13 @@ int controleurClavier(controleurT * control)
 			systemeInitialisePosition(&(*control).systeme);
 			break;
 
-  // Afficher les observables
+  // Afficher les informations
 
 		case SDLK_F5:	//	
 			observablesAfficheEnergie(&(*control).systeme);
 			break;
-
-  // Changer le montage
-
-		case SDLK_F9:	//	Trou
-			observablesAfficheEnergie(&(*control).systeme);
-			break;
-
-  // Afficher les observables
-
-		case SDLK_F10:	//	Maxwel
-			observablesAfficheEnergie(&(*control).systeme);
+		case SDLK_F6:	//	
+			thermostatAfficheThermostat(&(*control).systeme.montage.thermostat);
 			break;
 
 		default:

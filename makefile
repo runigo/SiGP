@@ -30,7 +30,7 @@
 # termes.
 
 CC=gcc
-EXEC=boltzmann
+EXEC=SiGP
 CFLAGS= -Wall -Wextra -Werror --std=c99
 LDFLAGS= -Wall -Wextra -Werror --std=c99 -lm
 

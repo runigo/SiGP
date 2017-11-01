@@ -1,8 +1,8 @@
 
 /*
-Copyright septembre 2017, Stephan Runigo
+Copyright novembre 2017, Stephan Runigo
 runigo@free.fr
-SiGP 1.3.3  simulateur de gaz parfait
+SiGP 1.3.4  simulateur de gaz parfait
 Ce logiciel est un programme informatique servant à simuler un gaz parfait
 et à en donner une représentation graphique. Il permet d'observer une détente
 de Joule ainsi que des transferts thermiques avec des thermostats.
@@ -38,14 +38,15 @@ void montageChangeParoiCentrale(montageT * montage, int mode)
 	{
 	(*montage).paroiCentrale = mode;
 
-	if(mode==1)
+	if(mode==1 || mode==-1 )
 			(*montage).trou = 0;
-	if(mode==2)
+	if(mode==2 || mode==-2)
 			(*montage).trou = DEMItROU;
 		
 
 	fprintf(stderr, "Paroi centrale = %d, ", (*montage).paroiCentrale);
 	fprintf(stderr, "trou = %d\n", (*montage).trou);
+	if(mode<0)fprintf(stderr, "Démon de Maxwell activé\n");
 
 	return;
 	}

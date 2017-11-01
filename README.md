@@ -4,11 +4,35 @@ Simulateur de thermodynamique statistique
 
 SiGP est un programme écrit en C et utilisant la librairie graphique SDL 1.2.
 
+
+INSTALLATION
+
+Pour installer ce programme sur votre ordinateur, vous devez avoir
+installé la librairie graphique SDL ainsi que les outils permettant
+la compilation :
+Par exemple, avec une distribution basée sur debian, dans un terminal avec les
+droits de l'administrateur :
+
+	# apt-get install gcc make libsdl1.2-dev
+
+Placez-vous dans le répertoire des sources, effectuez la compilation,
+
+	$ make
+
+Lancer l'exécutable créé :
+
+	$ ./SiGP
+
+Lancer l'exécutable avec d'éventuelles options :
+
+	$ ./SiGP cloison 0 thermostat 2
+
+
 Il permet de simuler une détente de Joule ainsi que des transferts thermique et d'en donner une représentation graphique.
 
 La touche F1 réinitialise le système, la touche F5 affiche les paramètres énergétiques.
 
-Les flêches haut, bas, droite, gauche changent la vitesse de la simulation.
+Les touche F9, F10, F11 et F12 changent la vitesse de la simulation.
 
 La touche entrée change le mode ( avec ou sans attente d'évènement ) de la simulation.
 
@@ -20,6 +44,7 @@ Activation du thermostat :
 	k : système thermostaté gauche-droite
 
 Réglage du thermostat :
+		p, m : Température du thermostat uniforme
 		u, j : Température de la paroi droite
 		y, h : Température de la paroi gauche
 
@@ -47,9 +72,14 @@ gauche :	Température thermostat gauche.
 droite :	Température thermostat droit.
 
 
-thermostat :	Activation du thermostat, 0 : système isolé.
+thermostat :	Activation du thermostat, 0 : système isolé, 1 : uniforme, 2 : dissymétrie
 
 cloison :	Activation cloison centrale.
+0 : Pas de cloison, 
+1 : Cloison fermée, 
+2 : Cloison percée, 
+-1 : Cloison percée et démon de maxwell, 
+-2 : Cloison et démon de maxwell.
 
 
 aide :		Affiche l'aide.
@@ -60,9 +90,9 @@ help :		Affiche l'aide.
 
 LICENCE
 
-Copyright septembre 2017, Stephan Runigo
+Copyright novembre 2017, Stephan Runigo
 runigo@free.fr
-SiGP 1.3.3  simulateur de gaz parfait
+SiGP 1.3.4  simulateur de gaz parfait
 Ce logiciel est un programme informatique servant à simuler un gaz parfait
 et à en donner une représentation graphique. Il permet d'observer une détente
 de Joule ainsi que des transferts thermiques avec des thermostats.

@@ -147,4 +147,28 @@ void thermostatAfficheTemperature(thermostatT * thermostat)
 	return;
 	}
 
+void thermostatAfficheThermostat(thermostatT * thermostat)
+
+			// 	Affiche la valeur des paramètres du thermostat
+	{
+	printf("\nÉTATS DES THERMOSTATS\n");
+	switch( (*thermostat).actif )
+		{
+		case 0:
+			printf("	(*thermostat).actif = %d : système isolé\n", (*thermostat).actif);break;
+		case 1:
+			printf("	(*thermostat).actif = %d : thermostat uniforme\n", (*thermostat).actif);
+			printf("	Puissance = %f\n", (*thermostat).temperature);
+			break;
+		case 2:
+			printf("	(*thermostat).actif = %d : thermostats gauche-droite\n", (*thermostat).actif);
+			printf("	Puissance à gauche = %f\n", (*thermostat).gauche);
+			printf("	Puissance à droite = %f\n", (*thermostat).droite);
+			break;
+		default:
+			break;
+		}
+	return;
+	}
+
 //////////////////////////////////////////////////////////////////////////

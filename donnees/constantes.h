@@ -52,8 +52,8 @@ termes.
 #define PI 3.14159265359
 #define DEUXPI 6.28318530718
 
-#define LARGEUR 1190 // Largeur de la fenêtre
-#define HAUTEUR 495 // Hauteur de la fenêtre
+#define LARGEUR 790 // Largeur de la fenêtre
+#define HAUTEUR 395 // Hauteur de la fenêtre
 #define MARGE 49 // Marge fenêtre-montage
 
 #define DEMItROU 7 // Trou dans la cloison, sur 2

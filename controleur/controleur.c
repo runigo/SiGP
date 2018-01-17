@@ -226,13 +226,15 @@ int controleurClavier(controleurT * control)
 		case SDLK_KP_MINUS:
 			controleurChangeVitesse(control, 0.91);break;
 		case SDLK_F9:
-			controleurChangeVitesse(control, 0.32);break;
+			//controleurChangeVitesse(control, 0.32);break;
+			(*control).duree=1;break;
 		case SDLK_F10:
 			controleurChangeVitesse(control, 0.91);break;
 		case SDLK_F11:
 			controleurChangeVitesse(control, 1.1);break;
 		case SDLK_F12:
-			controleurChangeVitesse(control, 3.1);break;
+			//controleurChangeVitesse(control, 3.1);break;
+			(*control).duree=DUREE_MAX;break;
 	// Taille du trou
 
 		case SDLK_a:
@@ -250,11 +252,11 @@ int controleurClavier(controleurT * control)
 			systemeChangeCloison(&(*control).systeme, 1);break;
 		case SDLK_c:	//	Cloison percée
 			systemeChangeCloison(&(*control).systeme, 2);break;
-		case SDLK_v:	//	Démon de Maxwell
+		case SDLK_v:	//	cloison percée et démon de Maxwell
 			systemeChangeCloison(&(*control).systeme, -1);break;
-		case SDLK_b:	//	cloison percée et démon de Maxwell
+		case SDLK_b:	//	Démon de Maxwell
 			systemeChangeCloison(&(*control).systeme, -1);break;
-		case SDLK_n:	//	cloison fermée et démon de Maxwell
+		case SDLK_n:	//	Trou max et démon de Maxwell
 			systemeChangeCloison(&(*control).systeme, -2);break;
 
 	// Thermostat

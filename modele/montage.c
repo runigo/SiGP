@@ -38,10 +38,13 @@ void montageChangeParoiCentrale(montageT * montage, int mode)
 	{
 	(*montage).paroiCentrale = mode;
 
-	if(mode==1 || mode==-1 )
+	//if(mode==1 || mode==-1 )
+	if(mode==1)
 			(*montage).trou = 0;
-	if(mode==2 || mode==-2)
+	if(mode==2 || mode==-1)
 			(*montage).trou = DEMItROU;
+	if(mode==-2)
+			(*montage).trou = (*montage).demiHauteur;
 		
 
 	fprintf(stderr, "Paroi centrale = %d, ", (*montage).paroiCentrale);

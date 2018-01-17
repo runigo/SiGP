@@ -139,12 +139,12 @@ void optionsTemperature(optionsT * options, char *opt)
 	if(temperature>TEMPERATURE_MIN && temperature<TEMPERATURE_MAX)
 		{
 		(*options).temperature = temperature;
-		printf("Option temperature valide, température initiale = %f\n", (*options).temperature);
+		printf("Option temperature valide, température initiale = %6.3f\n", (*options).temperature);
 		}
 	else
 		{
-		printf("Option temperature non valide, température = %f\n", (*options).temperature);
-		printf("Option temperature : %f < temperature < %f\n", TEMPERATURE_MIN, TEMPERATURE_MAX);
+		printf("Option temperature non valide, température = %6.3f\n", (*options).temperature);
+		printf("Option temperature : %6.3f < temperature < %6.3f\n", TEMPERATURE_MIN, TEMPERATURE_MAX);
 		}
 	return;
 	}
@@ -155,12 +155,12 @@ void optionsGauche(optionsT * options, char *opt)
 	if(gauche>TEMPERATURE_MIN && gauche<TEMPERATURE_MAX)
 		{
 		(*options).gauche = gauche;
-		printf("Option gauche valide, température thermostat gauche = %f\n", (*options).gauche);
+		printf("Option gauche valide, température thermostat gauche = %6.3f\n", (*options).gauche);
 		}
 	else
 		{
-		printf("Option gauche non valide, gauche = %f\n", (*options).gauche);
-		printf("Option gauche : %f < gauche < %f\n", TEMPERATURE_MIN, TEMPERATURE_MAX);
+		printf("Option gauche non valide, gauche = %6.3f\n", (*options).gauche);
+		printf("Option gauche : %6.3f < gauche < %6.3f\n", TEMPERATURE_MIN, TEMPERATURE_MAX);
 		}
 	return;
 	}
@@ -171,12 +171,12 @@ void optionsDroite(optionsT * options, char *opt)
 	if(droite>TEMPERATURE_MIN && droite<TEMPERATURE_MAX)
 		{
 		(*options).droite = droite;
-		printf("Option droite valide, température thermostat droite = %f\n", (*options).droite);
+		printf("Option droite valide, température thermostat droite = %6.3f\n", (*options).droite);
 		}
 	else
 		{
-		printf("Option droite non valide, droite = %f\n", (*options).droite);
-		printf("Option droite : %f < droite < %f\n", TEMPERATURE_MIN, TEMPERATURE_MAX);
+		printf("Option droite non valide, droite = %6.3f\n", (*options).droite);
+		printf("Option droite : %6.3f < droite < %6.3f\n", TEMPERATURE_MIN, TEMPERATURE_MAX);
 		}
 	return;
 	}
@@ -238,35 +238,58 @@ void optionsAide(void)
 	//printf("Option fond	0 < fond < 255	:	couleur du fond de l'affichage\n");
 	//printf("	Fond noir : 0, fond blanc : 255\n\n");
 
+	printf("OPTIONS DE LA LIGNE DE COMMANDE\n");
+	printf("	\n");
 	printf("pause	5 < pause < 555	:	pause entre les affichages en ms\n");
+	printf("	\n");
 
 	printf("duree	1 < duree < %d	:	nombre d'évolution du système entre les affichages\n", DUREE_MAX);
-	printf("	F9, F10, F11 et F12\n\n");
+	printf("	\n");
 
-	printf("temperature	%f < temperature < %f	Température du thermostat\n", TEMPERATURE_MIN, TEMPERATURE_MAX);
-	printf("	p, m : augmenter, diminuer la température\n\n");
+	printf("temperature	%6.3e < temperature < %6.3f	Température du thermostat\n", TEMPERATURE_MIN, TEMPERATURE_MAX);
+	printf("	\n");
 
-	printf("gauche	%f < gauche < %f	Température à gauche \n", TEMPERATURE_MIN, TEMPERATURE_MAX);
-	printf("	y, h : augmenter, diminuer la température\n\n");
+	printf("gauche	%6.3f < gauche < %6.3f	Température à gauche \n", TEMPERATURE_MIN, TEMPERATURE_MAX);
+	printf("	\n");
 
-	printf("droite	%f < droite < %f	Température à droite \n", TEMPERATURE_MIN, TEMPERATURE_MAX);
-	printf("	u, j : augmenter, diminuer la température\n\n");
+	printf("droite	%6.3f < droite < %6.3f	Température à droite \n", TEMPERATURE_MIN, TEMPERATURE_MAX);
+	printf("	\n");
 
 	printf("thermostat	-1 < thermostat < 3	Système isolé, système thermostaté, \n");
 	printf("		0 : système isolé, 1 : thermostat symétrique \n");
 	printf("		2 : thermostats droite-gauche. \n");
-	printf("	o : Désactive le thermostat \n");
-	printf("	i : Active le thermostat \n");
-	printf("	k : Active les thermostats. \n\n");
 
 	printf("trou	-1 < trou < %d, taille du trou	\n", (HAUTEUR-MARGE)/2+1);
-	printf("	a, q : augmenter, diminuer la taille du trou\n\n");
-	printf("	z, s : Trou max, trou implicite\n\n");
 
 	printf("cloison	-3 < cloison < 3	Cloison si <> 0\n");
 	printf("		0 : pas de cloison, 1 : cloison percée,\n");
 	printf("		2 : cloison fermé, -1 : démon de maxwell.\n");
-	printf("	w, x, c, v.\n");
+	printf("\n");
+
+	printf("COMMANDE DU CLAVIER\n\n");
+
+	printf("duree	F9, F10, F11 et F12	nombre d'évolution du système entre les affichages\n");
+	printf("	\n");
+
+	printf("temperature	p, m : augmenter, diminuer la température du thermostat\n");
+	printf("	\n");
+
+	printf("gauche	y, h : augmenter, diminuer la température à gauche \n");
+	printf("	\n");
+
+	printf("droite	u, j : augmenter, diminuer la température \n");
+	printf("	\n");
+
+	printf("thermostat	o : Désactive le thermostat, système isolé, \n");
+	printf("		i : Active le thermostat, système thermostaté,\n");
+	printf("		k : Active les thermostats droite-gauche. \n");
+	printf("	 \n");
+
+	printf("trou	a, q : augmenter, diminuer la taille du trou\n");
+	printf("	z, s : Trou max, valeur implicite\n");
+
+	printf("cloison		w : pas de cloison, x : cloison percée,\n");
+	printf("		c : cloison fermé, v : démon de maxwell.\n");
 	printf("\n");
 	fprintf(stderr, "\nSortie de SiGP\n");
 	exit(EXIT_FAILURE);

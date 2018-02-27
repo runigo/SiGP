@@ -1,8 +1,8 @@
 
 /*
-Copyright novembre 2017, Stephan Runigo
+Copyright février 2018, Stephan Runigo
 runigo@free.fr
-SiGP 1.3.4  simulateur de gaz parfait
+SiGP 1.3.7  simulateur de gaz parfait
 Ce logiciel est un programme informatique servant à simuler un gaz parfait
 et à en donner une représentation graphique. Il permet d'observer une détente
 de Joule ainsi que des transferts thermiques avec des thermostats.
@@ -170,36 +170,50 @@ void controleurChangeMode(controleurT * control)
 
 void controleurChangeVitesse(controleurT * control, float facteur)
 	{
-	if( (*control).duree > DUREE_MAX && facteur > 1 )
+	if(facteur > 0.0)
 		{
-		fprintf(stderr, "duree maximale atteinte");
-		}
-	else
-		{
-		if( (*control).duree > 11 )
+		if( (*control).duree > DUREE_MAX && facteur > 1 )
 			{
-			(*control).duree = (*control).duree * facteur;
+			printf("Duree maximale atteinte. ");
 			}
 		else
 			{
-			if( facteur > 1)
+			if( (*control).duree > 11 )
 				{
-				(*control).duree ++;
+				(*control).duree = (*control).duree * facteur;
 				}
 			else
 				{
-				if( (*control).duree > 1 )
+				if( facteur > 1)
 					{
-					(*control).duree --;
+					(*control).duree ++;
 					}
 				else
 					{
-					fprintf(stderr, "duree minimale atteinte");
+					if( (*control).duree > 1 )
+						{
+						(*control).duree --;
+						}
+					else
+						{
+						printf("Duree minimale atteinte. ");
+						}
 					}
 				}
 			}
 		}
-	fprintf(stderr, "duree = %d\n", (*control).duree);
+	else
+		{
+		if(facteur > -5.0)
+			{
+			(*control).duree=1;
+			}
+		else
+			{
+			(*control).duree=DUREE_MAX;
+			}
+		}
+	printf("Duree = %d\n", (*control).duree);
 	return;
 	}
 
@@ -226,15 +240,23 @@ int controleurClavier(controleurT * control)
 		case SDLK_KP_MINUS:
 			controleurChangeVitesse(control, 0.91);break;
 		case SDLK_F9:
-			//controleurChangeVitesse(control, 0.32);break;
-			(*control).duree=1;break;
+			controleurChangeVitesse(control, -1.0);break;
+			//(*control).duree=1;break;
 		case SDLK_F10:
 			controleurChangeVitesse(control, 0.91);break;
 		case SDLK_F11:
 			controleurChangeVitesse(control, 1.1);break;
 		case SDLK_F12:
-			//controleurChangeVitesse(control, 3.1);break;
-			(*control).duree=DUREE_MAX;break;
+			controleurChangeVitesse(control, -10.0);break;
+			//(*control).duree=DUREE_MAX;break;
+
+	// Diametre des particules
+
+		case SDLK_e:
+			systemeChangeDiametre(&(*control).systeme, 1.1);break;
+		case SDLK_d:
+			systemeChangeDiametre(&(*control).systeme, 0.9);break;
+
 	// Taille du trou
 
 		case SDLK_a:

@@ -1,8 +1,8 @@
 
 /*
-Copyright novembre 2017, Stephan Runigo
+Copyright février 2018, Stephan Runigo
 runigo@free.fr
-SiGP 1.3.4  simulateur de gaz parfait
+SiGP 1.3.7  simulateur de gaz parfait
 Ce logiciel est un programme informatique servant à simuler un gaz parfait
 et à en donner une représentation graphique. Il permet d'observer une détente
 de Joule ainsi que des transferts thermiques avec des thermostats.
@@ -61,14 +61,11 @@ void systemeInitialisePosition(systemeT * systeme)
 
 void systemeInitialise(systemeT * systeme, int taille, float vitesse)
 	{
-	(void)taille;
 		// Taille des particules
-	//(*systeme).diametre = taille;
-	//(*systeme).diamCarre = taille * taille;
+	(*systeme).diametre = taille;
 
 		// Conditions initiales
 	(*systeme).vitesseInitiale = vitesse;
-	//(*systeme).temperature = vitesse * vitesse;(*systeme).vitesseInitiale
 
 		// Initialisation des mobiles
 	systemeInitialisePosition(systeme);
@@ -77,10 +74,7 @@ void systemeInitialise(systemeT * systeme, int taille, float vitesse)
 	}
 
 void systemeEvolue(systemeT * systeme, int duree)
-/*
-	 Évolution du système
-*/
-	{
+	{		//  Évolution du système
 	int i;
 		//fprintf(stderr, "Evolution temporelle du systeme \n");
 	for (i=0;i<duree;i++)
@@ -210,6 +204,54 @@ void systemeChangeCloison(systemeT * systeme, int mode)
 	return;
 	}
 
+void systemeChangeDiametre(systemeT * systeme, float facteur)
+/*
+		Changement de la surface efficace des particules
+*/
+	{
+	int i;
+	int diametre = 1;
+	float diamCarre = 0.71;
+
+	//(*mobile).diametre=TAILLE;
+	//(*mobile).diamCarre=TAILLE*TAILLE*0.71;
+
+	if( (*systeme).diametre > TAILLE_MAX && facteur > 1 )
+		{
+		fprintf(stderr, "Diamètre maximal atteint. ");
+		}
+	else
+		{
+		if( facteur > 1)
+			{
+			(*systeme).diametre ++;
+			}
+		else
+			{
+			if( (*systeme).diametre > 1 )
+				{
+				(*systeme).diametre --;
+				}
+			else
+				{
+				fprintf(stderr, "Diamètre minimal atteint. ");
+				}
+			}
+		}
+
+	diametre = (*systeme).diametre;
+	diamCarre = diametre*diametre*0.71;
+
+		//	Réinitialisation surface efficace
+	for(i=0;i<NOMBRE;i++)
+		{
+		(*systeme).mobile[i].diametre = diametre;
+		(*systeme).mobile[i].diamCarre = diamCarre;
+		}
+
+	printf("Diamètre des particules = %d\n", diametre);
+	return;
+	}
 
 ////////////////////////////////////////////////////////////////////////////////
 

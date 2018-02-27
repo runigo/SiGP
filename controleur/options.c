@@ -1,8 +1,8 @@
 
 /*
-Copyright novembre 2017, Stephan Runigo
+Copyright février 2018, Stephan Runigo
 runigo@free.fr
-SiGP 1.3.4  simulateur de gaz parfait
+SiGP 1.3.7  simulateur de gaz parfait
 Ce logiciel est un programme informatique servant à simuler un gaz parfait
 et à en donner une représentation graphique. Il permet d'observer une détente
 de Joule ainsi que des transferts thermiques avec des thermostats.
@@ -271,7 +271,7 @@ void optionsAide(void)
 	printf("duree	F9, F10, F11 et F12	nombre d'évolution du système entre les affichages\n");
 	printf("	\n");
 
-	printf("temperature	p, m : augmenter, diminuer la température du thermostat\n");
+	printf("température	p, m : augmenter, diminuer la température du thermostat\n");
 	printf("	\n");
 
 	printf("gauche	y, h : augmenter, diminuer la température à gauche \n");
@@ -288,8 +288,9 @@ void optionsAide(void)
 	printf("trou	a, q : augmenter, diminuer la taille du trou\n");
 	printf("	z, s : Trou max, valeur implicite\n");
 
-	printf("cloison		w : pas de cloison, x : cloison percée,\n");
-	printf("		c : cloison fermé, v : démon de maxwell.\n");
+	printf("cloison		w : pas de cloison, x : cloison fermée,\n");
+	printf("		c : cloison percée, v : démon de maxwell.\n");
+	printf("		b : démon de maxwell, n : démon de maxwell.\n");
 	printf("\n");
 	fprintf(stderr, "\nSortie de SiGP\n");
 	exit(EXIT_FAILURE);

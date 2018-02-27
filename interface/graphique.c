@@ -1,8 +1,8 @@
 
 /*
-Copyright septembre 2017, Stephan Runigo
+Copyright février 2018, Stephan Runigo
 runigo@free.fr
-SiGP 1.3.3  simulateur de gaz parfait
+SiGP 1.3.7  simulateur de gaz parfait
 Ce logiciel est un programme informatique servant à simuler un gaz parfait
 et à en donner une représentation graphique. Il permet d'observer une détente
 de Joule ainsi que des transferts thermiques avec des thermostats.
@@ -154,30 +154,17 @@ void graphiqueDisque(int X, int Y, int rayon, Uint32 couleur)
 	{
 	int i;
 
-	for(i=1;i<rayon;i++)
+	if(rayon > 1)
 		{
-		graphiqueCercle(X, Y, i, couleur);
-		}
-
-	return;
-	}
-
-void graphiqueParticule(int abs, int ord, Uint32 couleur)
-	{
-	int i;
-	int j;
-
-	for(i=-1;i<2;i++)
-		{
-	for(j=-1;j<2;j++)
+		for(i=1;i<rayon;i++)
 			{
-			graphiqueAffichePixelVerif(abs+i, ord+j, couleur);
+			graphiqueCercle(X, Y, i, couleur);
 			}
 		}
-	graphiqueAffichePixelVerif(abs+2, ord, couleur);
-	graphiqueAffichePixelVerif(abs-2, ord, couleur);
-	graphiqueAffichePixelVerif(abs, ord+2, couleur);
-	graphiqueAffichePixelVerif(abs, ord-2, couleur);
+	else
+		{
+		graphiqueAffichePixelVerif(X, Y, couleur);
+		}
 
 	return;
 	}
@@ -185,6 +172,7 @@ void graphiqueParticule(int abs, int ord, Uint32 couleur)
 void graphiqueDessineGraphe(grapheT * graphe)
 	{
 	int i, x, y, X, Y;
+	int rayon = (*graphe).rayon;
 
 	  //fprintf(stderr, "Suppression de l'ancien graphe\n");
 	SDL_FillRect(affichage, NULL, 0);
@@ -196,18 +184,18 @@ void graphiqueDessineGraphe(grapheT * graphe)
 		x=(*graphe).ancienAbscisse[i];
 		y=(*graphe).ancienOrdonnee[i];
 		//fprintf(stderr, "graphiqueDisque, x, y %d %d \n",x, y);
-		graphiqueDisque(x, y, 3, couleurAncien);
+		graphiqueDisque(x, y, rayon, couleurAncien);
 		//graphiqueParticule(x, y, couleurAncien);
 		X=(*graphe).actuelAbscisse[i];
 		Y=(*graphe).actuelOrdonnee[i];
 		//fprintf(stderr, "graphiqueDisque, X, Y %d %d \n", X, Y);
-		graphiqueDisque(X, Y, 3, couleurActuel);
+		graphiqueDisque(X, Y, rayon, couleurActuel);
 		//graphiqueParticule(x, y, couleurActuel);
 		graphiqueLigneDroite(X, Y, x, y, couleurTrace2);
 		x=(*graphe).nouveauAbscisse[i];
 		y=(*graphe).nouveauOrdonnee[i];
 		//fprintf(stderr, "graphiqueDisque, x, y %d %d \n",x, y);
-		graphiqueDisque(x, y, 3, couleurNouveau);
+		graphiqueDisque(x, y, rayon, couleurNouveau);
 		//graphiqueParticule(x, y, couleurNouveau);
 		graphiqueLigneDroite(X, Y, x, y, couleurTrace1);
 		}
@@ -231,6 +219,26 @@ void graphiqueDessineGraphe(grapheT * graphe)
 	return;
 	}
 /*
+void graphiqueParticule(int abs, int ord, Uint32 couleur)
+	{
+	int i;
+	int j;
+
+	for(i=-1;i<2;i++)
+		{
+	for(j=-1;j<2;j++)
+			{
+			graphiqueAffichePixelVerif(abs+i, ord+j, couleur);
+			}
+		}
+	graphiqueAffichePixelVerif(abs+2, ord, couleur);
+	graphiqueAffichePixelVerif(abs-2, ord, couleur);
+	graphiqueAffichePixelVerif(abs, ord+2, couleur);
+	graphiqueAffichePixelVerif(abs, ord-2, couleur);
+
+	return;
+	}
+
 void graphiqueDessineGraphe(grapheT * graphe)
 	{
 	int i, x, y, X, Y;

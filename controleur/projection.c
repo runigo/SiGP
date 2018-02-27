@@ -1,8 +1,8 @@
 
 /*
-Copyright septembre 2017, Stephan Runigo
+Copyright février 2018, Stephan Runigo
 runigo@free.fr
-SiGP 1.3.3  simulateur de gaz parfait
+SiGP 1.3.7  simulateur de gaz parfait
 Ce logiciel est un programme informatique servant à simuler un gaz parfait
 et à en donner une représentation graphique. Il permet d'observer une détente
 de Joule ainsi que des transferts thermiques avec des thermostats.
@@ -34,37 +34,41 @@ termes.
 #include "projection.h"
 
 
-void projectionSystemeGraphe(systemeT * system, grapheT * graph)
+void projectionSystemeGraphe(systemeT * system, grapheT * graphe)
 	{
 	int i;
 	int demiLargeur = LARGEUR/2;
 	int demiHauteur = HAUTEUR/2;
 
-	(*graph).cloison = (*system).montage.paroiCentrale;
-	grapheChangeTrou(graph, (*system).montage.trou);//(*graph).trou = (*system).montage.trou;
+	(*graphe).cloison = (*system).montage.paroiCentrale;
+	grapheChangeTrou(graphe, (*system).montage.trou);//(*graphe).trou = (*system).montage.trou;
+	(*graphe).rayon = (*system).diametre/2;
+	if((*graphe).rayon < 1) (*graphe).rayon = 1;
 
 	for(i=0;i<(NOMBRE);i++)
 		{
 				// Mémoire pour la trace
-		(*graph).ancienAbscisse[i]=(*graph).actuelAbscisse[i];
-		(*graph).ancienOrdonnee[i]=(*graph).actuelOrdonnee[i];
-		(*graph).actuelAbscisse[i]=(*graph).nouveauAbscisse[i];
-		(*graph).actuelOrdonnee[i]=(*graph).nouveauOrdonnee[i];
+		(*graphe).ancienAbscisse[i]=(*graphe).actuelAbscisse[i];
+		(*graphe).ancienOrdonnee[i]=(*graphe).actuelOrdonnee[i];
+		(*graphe).actuelAbscisse[i]=(*graphe).nouveauAbscisse[i];
+		(*graphe).actuelOrdonnee[i]=(*graphe).nouveauOrdonnee[i];
 
 				// Projection du système
-		(*graph).nouveauAbscisse[i] = demiLargeur + (*system).mobile[i].nouveau.x;
+		(*graphe).nouveauAbscisse[i] = demiLargeur + (*system).mobile[i].nouveau.x;
 
-		if((*graph).nouveauAbscisse[i]>LARGEUR || (*graph).nouveauAbscisse[i]<0)
+		if((*graphe).nouveauAbscisse[i]>LARGEUR || (*graphe).nouveauAbscisse[i]<0)
 			{
-			(*graph).nouveauAbscisse[i] = LARGEUR/2;
+			(*graphe).nouveauAbscisse[i] = LARGEUR/2;
 			}
 
-		(*graph).nouveauOrdonnee[i] = demiHauteur + (*system).mobile[i].nouveau.y;
+		(*graphe).nouveauOrdonnee[i] = demiHauteur + (*system).mobile[i].nouveau.y;
 
-		if((*graph).nouveauOrdonnee[i]>HAUTEUR || (*graph).nouveauOrdonnee[i]<0)
+		if((*graphe).nouveauOrdonnee[i]>HAUTEUR || (*graphe).nouveauOrdonnee[i]<0)
 			{
-			(*graph).nouveauOrdonnee[i] = HAUTEUR/2;
+			(*graphe).nouveauOrdonnee[i] = HAUTEUR/2;
 			}
 		}
 	return;
 	}
+
+//////////////////////////////////////////////////////////////////////////////

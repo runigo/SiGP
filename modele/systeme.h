@@ -1,8 +1,8 @@
 
 /*
-Copyright septembre 2017, Stephan Runigo
+Copyright février 2018, Stephan Runigo
 runigo@free.fr
-SiGP 1.3.3  simulateur de gaz parfait
+SiGP 1.3.7  simulateur de gaz parfait
 Ce logiciel est un programme informatique servant à simuler un gaz parfait
 et à en donner une représentation graphique. Il permet d'observer une détente
 de Joule ainsi que des transferts thermiques avec des thermostats.
@@ -42,8 +42,7 @@ typedef struct SystemeT systemeT;
 		mobileT mobile[NOMBRE];
 
 			// Taille des particules
-		//int diametre;
-		//double diamCarre;
+		int diametre;
 
 		montageT montage;
 
@@ -56,5 +55,6 @@ void systemeInitialise(systemeT * systeme, int taille, float vitesse);
 void systemeEvolue(systemeT * systeme, int duree); // Passage de l'ancien système au nouveau, appelée dans le main.
 
 void systemeChangeCloison(systemeT * systeme, int mode);
+void systemeChangeDiametre(systemeT * systeme, float facteur);
 
 #endif

@@ -63,6 +63,4 @@ termes.
 #define TEMPERATURE_MAX 19666.1 // Température maximale
 #define TEMPERATURE_MIN 0.0000003 // Température minimale
 
-#define ENERGIE_SECURITE 777666555444333222111 // Énergie à ne pas dépasser
-
 #endif

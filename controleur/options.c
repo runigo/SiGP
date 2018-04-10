@@ -285,6 +285,9 @@ void optionsAide(void)
 	printf("		k : Active les thermostats droite-gauche. \n");
 	printf("	 \n");
 
+	printf("diamètre	e, d : augmenter, diminuer la surface efficace\n");
+	printf("	 \n");
+
 	printf("trou	a, q : augmenter, diminuer la taille du trou\n");
 	printf("	z, s : Trou max, valeur implicite\n");
 

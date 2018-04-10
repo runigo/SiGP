@@ -4,39 +4,32 @@ Simulateur de thermodynamique statistique
 
 SiGP est un programme écrit en C et utilisant la librairie graphique SDL 1.2.
 
+Il permet de simuler une détente de Joule ainsi que des transferts thermique et d'en donner une représentation graphique.
 
-INSTALLATION
+INSTALLATION SUR DEBIAN
 
 Pour installer ce programme sur votre ordinateur, vous devez avoir
 installé la librairie graphique SDL ainsi que les outils permettant
-la compilation :
-Par exemple, avec une distribution basée sur debian, dans un terminal avec les
-droits de l'administrateur :
+la compilation : 
+Dans un terminal avec les droits de l'administrateur :
 
 	# apt-get install gcc make libsdl1.2-dev
 
-Placez-vous dans le répertoire des sources, effectuez la compilation,
+Télechargez et décompressez les sources. Placez-vous dans le répertoire des sources, effectuez la compilation,
 
 	$ make
 
-Lancer l'exécutable créé :
+Lancez l'exécutable créé :
 
 	$ ./SiGP
 
-Lancer l'exécutable avec d'éventuelles options :
+Lancez l'exécutable avec d'éventuelles options :
 
 	$ ./SiGP cloison 0 thermostat 2
 
 
-Il permet de simuler une détente de Joule ainsi que des transferts thermique et d'en donner une représentation graphique.
 
-La touche F1 réinitialise le système, la touche F5 affiche les paramètres énergétiques.
-
-Les touche F9, F10, F11 et F12 changent la vitesse de la simulation.
-
-La touche entrée change le mode ( avec ou sans attente d'évènement ) de la simulation.
-
-CLAVIER
+COMMANDES DU CLAVIER
 
 Activation du thermostat :
 	o : système isolé.
@@ -56,6 +49,9 @@ Paroi :		w : supprime la cloison
 Taille du trou :
 		a, q : augmente, diminue
 		z, s : Taille max, min
+
+Taille des particules:
+		e, d : augmente, diminue
 
 OPTION DE LA LIGNE DE COMMANDE
 
@@ -85,6 +81,12 @@ cloison :	Activation cloison centrale.
 aide :		Affiche l'aide.
 
 help :		Affiche l'aide.
+
+La touche F1 réinitialise le système, la touche F5 affiche les paramètres énergétiques.
+
+Les touche F9, F10, F11 et F12 changent la vitesse de la simulation.
+
+La touche entrée change le mode ( avec ou sans attente d'évènement ) de la simulation.
 
 
 

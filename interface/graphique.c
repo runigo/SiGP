@@ -1,8 +1,8 @@
 
 /*
-Copyright février 2018, Stephan Runigo
+Copyright avril 2018, Stephan Runigo
 runigo@free.fr
-SiGP 1.3.7  simulateur de gaz parfait
+SiGP 1.4  simulateur de gaz parfait
 Ce logiciel est un programme informatique servant à simuler un gaz parfait
 et à en donner une représentation graphique. Il permet d'observer une détente
 de Joule ainsi que des transferts thermiques avec des thermostats.
@@ -57,7 +57,7 @@ void graphiqueParticule(int abs, int ord, Uint32 couleur);
 
 int graphiqueInitialiseSDL(int fond)
 	{
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0)
 		{
 		fprintf(stderr, "Erreur à l'initialisation de la SDL : %s\n", SDL_GetError());
 		exit(EXIT_FAILURE);
@@ -201,11 +201,11 @@ void graphiqueDessineGraphe(grapheT * graphe)
 		}
 
 		// Parois horizontales
-		graphiqueLigneDroite((*graphe).ax, (*graphe).dy, (*graphe).cx, (*graphe).dy, couleurTrace1);
-		graphiqueLigneDroite((*graphe).ax, (*graphe).gy, (*graphe).cx, (*graphe).gy, couleurTrace1);
+	graphiqueLigneDroite((*graphe).ax, (*graphe).dy, (*graphe).cx, (*graphe).dy, couleurTrace1);
+	graphiqueLigneDroite((*graphe).ax, (*graphe).gy, (*graphe).cx, (*graphe).gy, couleurTrace1);
 		// Parois verticales
-		graphiqueLigneDroite((*graphe).ax, (*graphe).dy, (*graphe).ax, (*graphe).gy, couleurTrace1);
-		graphiqueLigneDroite((*graphe).cx, (*graphe).dy, (*graphe).cx, (*graphe).gy, couleurTrace1);
+	graphiqueLigneDroite((*graphe).ax, (*graphe).dy, (*graphe).ax, (*graphe).gy, couleurTrace1);
+	graphiqueLigneDroite((*graphe).cx, (*graphe).dy, (*graphe).cx, (*graphe).gy, couleurTrace1);
 
 		// Paroi centrale
 	if((*graphe).cloison != 0)

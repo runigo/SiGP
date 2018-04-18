@@ -38,8 +38,8 @@ OBJDIR = ./obj
 
 all : $(EXEC)
 
-$(EXEC) : $(OBJDIR)/principale.o $(OBJDIR)/controleur.o $(OBJDIR)/donnees.o $(OBJDIR)/projection.o $(OBJDIR)/options.o $(OBJDIR)/graphique.o $(OBJDIR)/graphe.o $(OBJDIR)/observables.o $(OBJDIR)/systeme.o $(OBJDIR)/thermostat.o $(OBJDIR)/mobile.o $(OBJDIR)/montage.o $(OBJDIR)/vecteur.o $(OBJDIR)/aleatoire.o
-	$(CC) -g $(OBJDIR)/principale.o $(OBJDIR)/controleur.o $(OBJDIR)/donnees.o $(OBJDIR)/projection.o $(OBJDIR)/options.o $(OBJDIR)/graphique.o $(OBJDIR)/graphe.o $(OBJDIR)/observables.o $(OBJDIR)/systeme.o $(OBJDIR)/thermostat.o $(OBJDIR)/mobile.o $(OBJDIR)/montage.o $(OBJDIR)/vecteur.o $(OBJDIR)/aleatoire.o ` sdl-config --libs` $(LDFLAGS) -o $@
+$(EXEC) : $(OBJDIR)/principale.o $(OBJDIR)/controleur.o $(OBJDIR)/donnees.o $(OBJDIR)/projection.o $(OBJDIR)/options.o $(OBJDIR)/horloge.o $(OBJDIR)/graphique.o $(OBJDIR)/graphe.o $(OBJDIR)/observables.o $(OBJDIR)/systeme.o $(OBJDIR)/thermostat.o $(OBJDIR)/mobile.o $(OBJDIR)/montage.o $(OBJDIR)/vecteur.o $(OBJDIR)/aleatoire.o
+	$(CC) -g $(OBJDIR)/principale.o $(OBJDIR)/controleur.o $(OBJDIR)/donnees.o $(OBJDIR)/projection.o $(OBJDIR)/options.o $(OBJDIR)/horloge.o $(OBJDIR)/graphique.o $(OBJDIR)/graphe.o $(OBJDIR)/observables.o $(OBJDIR)/systeme.o $(OBJDIR)/thermostat.o $(OBJDIR)/mobile.o $(OBJDIR)/montage.o $(OBJDIR)/vecteur.o $(OBJDIR)/aleatoire.o ` sdl-config --libs` $(LDFLAGS) -o $@
 
 $(OBJDIR)/principale.o : controleur/principale.c controleur/principale.h
 	$(CC) -c -g controleur/principale.c $(CFLAGS) -o $@
@@ -55,6 +55,9 @@ $(OBJDIR)/donnees.o : donnees/donnees.c donnees/donnees.h
 
 $(OBJDIR)/options.o : controleur/options.c controleur/options.h
 	$(CC) -c -g controleur/options.c $(CFLAGS) -o $@
+
+$(OBJDIR)/horloge.o : interface/horloge.c interface/horloge.h
+	$(CC) -c -g interface/horloge.c $(CFLAGS) -o $@
 
 $(OBJDIR)/graphique.o : interface/graphique.c interface/graphique.h
 	$(CC) -c -g interface/graphique.c $(CFLAGS) -o $@

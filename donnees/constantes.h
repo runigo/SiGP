@@ -1,8 +1,8 @@
 
 /*
-Copyright février 2018, Stephan Runigo
+Copyright avril 2018, Stephan Runigo
 runigo@free.fr
-SiGP 1.3.7  simulateur de gaz parfait
+SiGP 1.4  simulateur de gaz parfait
 Ce logiciel est un programme informatique servant à simuler un gaz parfait
 et à en donner une représentation graphique. Il permet d'observer une détente
 de Joule ainsi que des transferts thermiques avec des thermostats.
@@ -42,6 +42,8 @@ termes.
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
+
+#define TEMPS_AFFICHAGE 70 // Durée entre les affichages en ms
 
 #define ALEA 77 // Taille du tableau de nombre aléatoire
 

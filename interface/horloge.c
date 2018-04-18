@@ -1,11 +1,10 @@
-
 /*
-Copyright septembre 2017, Stephan Runigo
+Copyright avril 2018, Stephan Runigo
 runigo@free.fr
-SiGP 1.3.3  simulateur de gaz parfait
-Ce logiciel est un programme informatique servant à simuler un gaz parfait
-et à en donner une représentation graphique. Il permet d'observer une détente
-de Joule ainsi que des transferts thermiques avec des thermostats.
+SiCF 1.4  simulateur de corde vibrante et spectre
+Ce logiciel est un programme informatique servant à simuler l'équation
+d'une corde vibrante, à calculer sa transformée de fourier, et à donner
+une représentation graphique de ces fonctions. 
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -31,44 +30,61 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _CONTROLEUR_
-#define _CONTROLEUR_
+// Librement inspiré de 
+// http://piconano2015.wixsite.com/soft/code
+// Copyright 2015 par PicoSoft.
 
-#include "../controleur/options.h"		//	Options de la ligne de commande
-#include "../controleur/projection.h"	//	Projection du système sur le graphe.
+#include "horloge.h"
 
-#include "../modele/observables.h"		//	Observables du système
-#include "../interface/graphique.h"		//	Librairie SDL et représentation graphique
-#include "../interface/horloge.h"		//	Librairie SDL et représentation graphique
+/*
+	VARIABLES GLOBALES
+*/
 
+SDL_Event user_event;
+int *paramTimer;
 
+/*
+	...............
+*/
 
-typedef struct ControleurT controleurT;
-	struct ControleurT
-		{
+Uint32 callTimer(Uint32 it, void *para);
 
-		optionsT options;		// Options de la ligne de commande
+int horlogeCreation(horlogeT * horloge)
+	{
+		//fprintf(stderr, " Initialisation de l'horloge \n");
 
-		systemeT systeme;		// Modélisation physique de la chaîne
+	user_event.type=SDL_USEREVENT;
 
-		//projectionT projection;	// Paramètre de la projection
+		// Lancement du Timer principal
+	(*horloge).horloge = SDL_AddTimer(TEMPS_AFFICHAGE, callTimer, &paramTimer);
 
-		grapheT graphe;		// Représentation graphique de la chaîne
+	(*horloge).depart = 0;	// Date du départ du chronomètre
 
-		SDL_Event evenement;	// Évenement SDL
+	return 0;
+	}
 
-		horlogeT horloge; // Horloge SDL
+Uint32 callTimer(Uint32 it, void *para)
+	{				// Callback du timer principal
+	SDL_PushEvent(&user_event);
+	(void) para;
+	return it;
+	}
 
-		int duree;	// nombre d'incrémentation du système par affichage
-		int mode;	// pause de l'évolution du système
-		int sortie;	// sortie de SiCP si > 0
+int horlogeSuppression(horlogeT * horloge)
+	{
+	SDL_RemoveTimer((*horloge).horloge);	// Suppression du timer
+	return 0;
+	}
 
-		int appui;	//	1 si le bouton de la souris est appuyé, 0 sinon.
+int horlogeChronoDepart(horlogeT * horloge)
+	{
+	(*horloge).depart = SDL_GetTicks();	// Départ du chronomètre
+	return 0;
+	}
 
-		};
+int horlogeChronoDuree(horlogeT * horloge)
+	{					// Durée chronométrée
+	return (int)(SDL_GetTicks() - (*horloge).depart);
+	}
 
-int controleurSimulationGraphique(controleurT * control);
-void controleurSimule(systemeT * system, int duree);
-
-
-#endif
+//////////////////////////////////////////////////////////////////////////////

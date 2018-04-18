@@ -35,8 +35,6 @@ termes.
 
 int main(int nb, char *opt[])
 	{
-	(void)nb;
-	(void)opt[0];
 	controleurT control;
 
 	fprintf(stderr, "\nDémarrage de SiGP\n");

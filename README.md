@@ -56,8 +56,6 @@ Taille des particules:
 OPTION DE LA LIGNE DE COMMANDE
 
 
-pause :		Temps de pause en ms entre les affichages.
-
 duree :		Nombre d'évolution du système entre les affichages.
 
 
@@ -86,15 +84,15 @@ La touche F1 réinitialise le système, la touche F5 affiche les paramètres én
 
 Les touche F9, F10, F11 et F12 changent la vitesse de la simulation.
 
-La touche entrée change le mode ( avec ou sans attente d'évènement ) de la simulation.
+La touche entrée change le mode de l'évolution.
 
 
 
 LICENCE
 
-Copyright novembre 2017, Stephan Runigo
+Copyright avril 2018, Stephan Runigo
 runigo@free.fr
-SiGP 1.3.4  simulateur de gaz parfait
+SiGP 1.4  simulateur de gaz parfait
 Ce logiciel est un programme informatique servant à simuler un gaz parfait
 et à en donner une représentation graphique. Il permet d'observer une détente
 de Joule ainsi que des transferts thermiques avec des thermostats.
